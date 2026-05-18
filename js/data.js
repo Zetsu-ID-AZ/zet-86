@@ -87,16 +87,17 @@ const DEFAULT_CONFIG = {
 async function loadConfig() {
     try {
         // Coba load dari folder data/
-        const response = await fetch('data/config.json');
+        const response = await fetch('/data/config.json');
         
         if (response.ok) {
             CONFIG = await response.json();
-            console.log('✅ Config loaded successfully from data/config.json');
+            console.log('✅ Config loaded successfully');
         } else {
-            throw new Error('JSON not found');
+            console.warn('⚠️ Config not found, using defaults');
+            CONFIG = DEFAULT_CONFIG;
         }
     } catch (error) {
-        console.error('❌ Error loading config, using default data:', error);
+        console.error('❌ Error loading config:', error);
         CONFIG = DEFAULT_CONFIG;
     }
     
